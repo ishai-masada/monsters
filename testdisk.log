@@ -1,0 +1,154 @@
+
+
+Mon Jun 14 09:59:14 2021
+Command line: TestDisk
+
+TestDisk 7.0, Data Recovery Utility, April 2015
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 5.10.17-v7+ (#1403 SMP Mon Feb 22 11:29:51 GMT 2021) armv7l
+Compiler: GCC 8.2
+ext2fs lib: 1.44.5, ntfs lib: libntfs-3g, reiserfs lib: none, ewf lib: none, curses lib: ncurses 6.1
+Warning: can't get size for Disk /dev/mapper/control - 0 B - 0 sectors, sector size=512
+Hard disk list
+Disk /dev/mmcblk0 - 31 GB / 29 GiB - CHS 973968 4 16, sector size=512
+
+Partition table type (auto): Intel
+Disk /dev/mmcblk0 - 31 GB / 29 GiB
+Partition table type: Intel
+
+Interface Advanced
+Geometry from i386 MBR: head=64 sector=32
+BAD_RS LBA=8192 4096
+FAT32 at 128/0/1
+Info: size boot_sector 524288, partition 524288
+FAT1 : 32-4064
+FAT2 : 4065-8097
+start_rootdir : 8098 root cluster : 2
+Data : 8098-524287
+sectors : 524288
+cluster_size : 1
+no_of_cluster : 516190 (2 - 516191)
+fat_length 4033 calculated 4033
+heads/cylinder 64 (FAT) != 4 (HD)
+sect/track 32 (FAT) != 16 (HD)
+get_geometry_from_list_part_aux head=4 nbr=4
+get_geometry_from_list_part_aux head=8 nbr=4
+get_geometry_from_list_part_aux head=16 nbr=4
+get_geometry_from_list_part_aux head=32 nbr=4
+get_geometry_from_list_part_aux head=64 nbr=4
+get_geometry_from_list_part_aux head=128 nbr=3
+ 1 P FAT32 LBA              128   0  1  8319   3 16     524288 [boot]
+     FAT32, blocksize=512, 268 MB / 256 MiB
+ 2 P Linux                 8320   0  1 973967   3 16   61801472 [rootfs]
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 31 GB / 29 GiB
+
+FAT: cluster=2(0x2), pos=16290
+FAT: cluster=146(0x92), pos=16434
+FAT: cluster=403(0x193), pos=16691
+FAT: cluster=815(0x32f), pos=17103
+FAT: cluster=1054(0x41e), pos=17342
+FAT: cluster=38244(0x9564), pos=54532
+FAT: cluster=89079(0x15bf7), pos=105367
+Directory /
+       3 drwxr-xr-x     0      0         0  4-Mar-2021 21:47 overlays
+      45 -rwxr-xr-x     0      0     25870  3-Mar-2021 12:40 bcm2708-rpi-b-plus.dtb
+       4 -rwxr-xr-x     0      0     18693  5-Jan-2021 06:30 COPYING.linux
+      41 -rwxr-xr-x     0      0      1594  5-Jan-2021 06:30 LICENCE.broadcom
+   97565 -rwxr-xr-x     0      0       145  4-Mar-2021 22:11 issue.txt
+X      0 -rwxr-xr-x     0      0         0 30-Apr-2021 20:40 sed5NESRS
+      96 -rwxr-xr-x     0      0     25218  3-Mar-2021 12:40 bcm2708-rpi-b-rev1.dtb
+     147 -rwxr-xr-x     0      0     25607  3-Mar-2021 12:40 bcm2708-rpi-b.dtb
+     198 -rwxr-xr-x     0      0     25529  3-Mar-2021 12:40 bcm2708-rpi-cm.dtb
+     248 -rwxr-xr-x     0      0     26545  3-Mar-2021 12:40 bcm2708-rpi-zero-w.dtb
+     300 -rwxr-xr-x     0      0     25352  3-Mar-2021 12:40 bcm2708-rpi-zero.dtb
+     350 -rwxr-xr-x     0      0     26745  3-Mar-2021 12:40 bcm2709-rpi-2-b.dtb
+     404 -rwxr-xr-x     0      0     26894  3-Mar-2021 12:40 bcm2710-rpi-2-b.dtb
+     457 -rwxr-xr-x     0      0     29011  3-Mar-2021 12:40 bcm2710-rpi-3-b-plus.dtb
+     514 -rwxr-xr-x     0      0     28392  3-Mar-2021 12:40 bcm2710-rpi-3-b.dtb
+     570 -rwxr-xr-x     0      0     26890  3-Mar-2021 12:40 bcm2710-rpi-cm3.dtb
+     623 -rwxr-xr-x     0      0     49090  3-Mar-2021 12:40 bcm2711-rpi-4-b.dtb
+     719 -rwxr-xr-x     0      0     48794  3-Mar-2021 12:40 bcm2711-rpi-400.dtb
+     816 -rwxr-xr-x     0      0     49202  3-Mar-2021 12:40 bcm2711-rpi-cm4.dtb
+     913 -rwxr-xr-x     0      0     52456  5-Jan-2021 06:30 bootcode.bin
+   97571 -rwxr-xr-x     0      0       166 31-Dec-1979 23:00 cmdline.txt
+   97573 -rwxr-xr-x     0      0      1783 30-Apr-2021 20:40 config.txt
+    1021 -rwxr-xr-x     0      0      7314  3-Mar-2021 12:40 fixup.dat
+    1036 -rwxr-xr-x     0      0      5448  3-Mar-2021 12:40 fixup4.dat
+    1047 -rwxr-xr-x     0      0      3187  3-Mar-2021 12:40 fixup4cd.dat
+    1055 -rwxr-xr-x     0      0      8452  3-Mar-2021 12:40 fixup4db.dat
+    1072 -rwxr-xr-x     0      0      8454  3-Mar-2021 12:40 fixup4x.dat
+    1089 -rwxr-xr-x     0      0      3187  3-Mar-2021 12:40 fixup_cd.dat
+    1096 -rwxr-xr-x     0      0     10298  3-Mar-2021 12:40 fixup_db.dat
+    1117 -rwxr-xr-x     0      0     10298  3-Mar-2021 12:40 fixup_x.dat
+    1138 -rwxr-xr-x     0      0   5981936  3-Mar-2021 12:40 kernel.img
+   12822 -rwxr-xr-x     0      0   6320896  3-Mar-2021 12:40 kernel7.img
+   25168 -rwxr-xr-x     0      0   6694536  3-Mar-2021 12:40 kernel7l.img
+   38245 -rwxr-xr-x     0      0   7758284  3-Mar-2021 12:40 kernel8.img
+   53398 -rwxr-xr-x     0      0   2952960  3-Mar-2021 12:40 start.elf
+   59166 -rwxr-xr-x     0      0   2228800  3-Mar-2021 12:40 start4.elf
+   63520 -rwxr-xr-x     0      0    793116  3-Mar-2021 12:40 start4cd.elf
+   65070 -rwxr-xr-x     0      0   3722504  3-Mar-2021 12:40 start4db.elf
+   72341 -rwxr-xr-x     0      0   2981192  3-Mar-2021 12:40 start4x.elf
+   78164 -rwxr-xr-x     0      0    793116  3-Mar-2021 12:40 start_cd.elf
+   79714 -rwxr-xr-x     0      0   4794472  3-Mar-2021 12:40 start_db.elf
+   89080 -rwxr-xr-x     0      0   3704808  3-Mar-2021 12:40 start_x.elf
+   97566 drwxr-xr-x     0      0         0 30-Apr-2021 16:35 System Volume Information
+X      0 -rwxr-xr-x     0      0         0 30-Apr-2021 20:40 config.txt.bak
+
+FAT: cluster=2(0x2), pos=16290
+FAT: cluster=146(0x92), pos=16434
+FAT: cluster=403(0x193), pos=16691
+FAT: cluster=815(0x32f), pos=17103
+FAT: cluster=1054(0x41e), pos=17342
+FAT: cluster=38244(0x9564), pos=54532
+FAT: cluster=89079(0x15bf7), pos=105367
+Directory /
+       3 drwxr-xr-x     0      0         0  4-Mar-2021 21:47 overlays
+      45 -rwxr-xr-x     0      0     25870  3-Mar-2021 12:40 bcm2708-rpi-b-plus.dtb
+       4 -rwxr-xr-x     0      0     18693  5-Jan-2021 06:30 COPYING.linux
+      41 -rwxr-xr-x     0      0      1594  5-Jan-2021 06:30 LICENCE.broadcom
+   97565 -rwxr-xr-x     0      0       145  4-Mar-2021 22:11 issue.txt
+X      0 -rwxr-xr-x     0      0         0 30-Apr-2021 20:40 sed5NESRS
+      96 -rwxr-xr-x     0      0     25218  3-Mar-2021 12:40 bcm2708-rpi-b-rev1.dtb
+     147 -rwxr-xr-x     0      0     25607  3-Mar-2021 12:40 bcm2708-rpi-b.dtb
+     198 -rwxr-xr-x     0      0     25529  3-Mar-2021 12:40 bcm2708-rpi-cm.dtb
+     248 -rwxr-xr-x     0      0     26545  3-Mar-2021 12:40 bcm2708-rpi-zero-w.dtb
+     300 -rwxr-xr-x     0      0     25352  3-Mar-2021 12:40 bcm2708-rpi-zero.dtb
+     350 -rwxr-xr-x     0      0     26745  3-Mar-2021 12:40 bcm2709-rpi-2-b.dtb
+     404 -rwxr-xr-x     0      0     26894  3-Mar-2021 12:40 bcm2710-rpi-2-b.dtb
+     457 -rwxr-xr-x     0      0     29011  3-Mar-2021 12:40 bcm2710-rpi-3-b-plus.dtb
+     514 -rwxr-xr-x     0      0     28392  3-Mar-2021 12:40 bcm2710-rpi-3-b.dtb
+     570 -rwxr-xr-x     0      0     26890  3-Mar-2021 12:40 bcm2710-rpi-cm3.dtb
+     623 -rwxr-xr-x     0      0     49090  3-Mar-2021 12:40 bcm2711-rpi-4-b.dtb
+     719 -rwxr-xr-x     0      0     48794  3-Mar-2021 12:40 bcm2711-rpi-400.dtb
+     816 -rwxr-xr-x     0      0     49202  3-Mar-2021 12:40 bcm2711-rpi-cm4.dtb
+     913 -rwxr-xr-x     0      0     52456  5-Jan-2021 06:30 bootcode.bin
+   97571 -rwxr-xr-x     0      0       166 31-Dec-1979 23:00 cmdline.txt
+   97573 -rwxr-xr-x     0      0      1783 30-Apr-2021 20:40 config.txt
+    1021 -rwxr-xr-x     0      0      7314  3-Mar-2021 12:40 fixup.dat
+    1036 -rwxr-xr-x     0      0      5448  3-Mar-2021 12:40 fixup4.dat
+    1047 -rwxr-xr-x     0      0      3187  3-Mar-2021 12:40 fixup4cd.dat
+    1055 -rwxr-xr-x     0      0      8452  3-Mar-2021 12:40 fixup4db.dat
+    1072 -rwxr-xr-x     0      0      8454  3-Mar-2021 12:40 fixup4x.dat
+    1089 -rwxr-xr-x     0      0      3187  3-Mar-2021 12:40 fixup_cd.dat
+    1096 -rwxr-xr-x     0      0     10298  3-Mar-2021 12:40 fixup_db.dat
+    1117 -rwxr-xr-x     0      0     10298  3-Mar-2021 12:40 fixup_x.dat
+    1138 -rwxr-xr-x     0      0   5981936  3-Mar-2021 12:40 kernel.img
+   12822 -rwxr-xr-x     0      0   6320896  3-Mar-2021 12:40 kernel7.img
+   25168 -rwxr-xr-x     0      0   6694536  3-Mar-2021 12:40 kernel7l.img
+   38245 -rwxr-xr-x     0      0   7758284  3-Mar-2021 12:40 kernel8.img
+   53398 -rwxr-xr-x     0      0   2952960  3-Mar-2021 12:40 start.elf
+   59166 -rwxr-xr-x     0      0   2228800  3-Mar-2021 12:40 start4.elf
+   63520 -rwxr-xr-x     0      0    793116  3-Mar-2021 12:40 start4cd.elf
+   65070 -rwxr-xr-x     0      0   3722504  3-Mar-2021 12:40 start4db.elf
+   72341 -rwxr-xr-x     0      0   2981192  3-Mar-2021 12:40 start4x.elf
+   78164 -rwxr-xr-x     0      0    793116  3-Mar-2021 12:40 start_cd.elf
+   79714 -rwxr-xr-x     0      0   4794472  3-Mar-2021 12:40 start_db.elf
+   89080 -rwxr-xr-x     0      0   3704808  3-Mar-2021 12:40 start_x.elf
+   97566 drwxr-xr-x     0      0         0 30-Apr-2021 16:35 System Volume Information
+X      0 -rwxr-xr-x     0      0         0 30-Apr-2021 20:40 config.txt.bak
+fat_copy dst=/home/pi/code/code/sed5NESRS first_cluster=0 (4294975392) size=0
+fat_copy dst=/home/pi/code/code/config.txt.bak first_cluster=0 (4294975392) size=0
+
+TestDisk exited normally.
