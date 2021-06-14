@@ -1,0 +1,27 @@
+- download created data for future development
+
+- turn-based battle 
+    - menu options:
+        - attack
+        - items 
+            - healing
+            - antedotes
+            - scapegoat potion
+        - flee
+        - switch fighter
+    - goal
+        - linear-based battle
+        - each planet is prewritten 
+        - data stored in json format 
+
+
+    creature stats
+        - type (examples: fire, posion, leef)
+        - name
+        - range
+
+- planet (list)
+    - name
+    - creatures (list)
+        -name 
+        - hp
