@@ -2,8 +2,9 @@
     - name
     - number of levels
     - number in sequence
-    - [moonkier, woorm, dragooon, pythooner, bitbit]
+    - [moonkier, woorm, dragooon, pythooner, bitbit, mantois]
         - name
+        - level
         - attribute
         - hp
         - strength
