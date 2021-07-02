@@ -1,0 +1,79 @@
+{
+    "moonkier": {
+        "name": "Moonkier",
+        "type": "forest",
+        "level": 2,
+        "hp": 60,
+        "strength": 15,
+        "defense": 6,
+        "speed": 13,
+        "accuracy": 6,
+        "resistance": 3
+    },
+    "woorm": {
+        "name": "Woorm",
+        "type": "land",
+        "level": 3,
+        "hp": 70,
+        "strength": 17,
+        "defense": 8,
+        "speed": 3,
+        "accuracy": 8,
+        "resistance": 3
+    },
+    "dragoooner": {
+        "name": "Dragoooner",
+        "type": "volcano",
+        "level": 4,
+        "hp": 90,
+        "strength": 20,
+        "defense": 10,
+        "speed": 12,
+        "accuracy": 6,
+        "resistance": 4
+    },
+    "bitbit": {
+        "name": "Bitbit",
+        "type": "land",
+        "level": 1,
+        "hp": 30,
+        "strength": 9,
+        "defense": 2,
+        "speed": 17,
+        "accuracy": 10,
+        "resistance": 3
+    },
+    "rocklit": {
+        "name": "Rocklit",
+        "type": "mountain",
+        "level": 4,
+        "hp": 75,
+        "strength": 3,
+        "defense": 19,
+        "speed": 4,
+        "accuracy": 5,
+        "resistance": 15
+    },
+    "mantoise": {
+        "name": "Mantoise",
+        "type": "forest",
+        "level": 3,
+        "hp": 65,
+        "strength": 3,
+        "defense": 3,
+        "speed": 3,
+        "accuracy": 3,
+        "resistance": 0
+    },
+    "a bee": {
+        "name": "A Bee",
+        "type": "forest",
+        "level": 4,
+        "hp": 30,
+        "strength": 15,
+        "defense": 0,
+        "speed": 8,
+        "accuracy": 5,
+        "resistance": 0
+    }
+}
