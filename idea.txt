@@ -1,4 +1,5 @@
 - download created data for future development
+- make the display functions methods of the creature classes
 
 - turn-based battle 
     - menu options:
