@@ -6,6 +6,8 @@ def display():
 def enemy_display():
     print(f'\nName: {enemy}', f'\nHealth: {enemy_hp}', f'\nStrength: 4')
 
+def rand_bool():
+    return random.choice([True, False])
 
 # Start of the game
 print("Welcome to Conquest!", "\nYour goal is to conquer every planet and establish peace.")
@@ -27,8 +29,8 @@ print(f"{enemy} has an hp of 50 and a strength of 4. Diminish its health to defe
 print("\nThese are your stats: ")
 display()
 
+count = 1
 while hp > 0 and enemy_hp > 0:
-    count = 1
     # Enemy turn
     if count % 2 == 0:
         print(f"{enemy} attacks you!")
@@ -38,36 +40,35 @@ while hp > 0 and enemy_hp > 0:
             display()
         else:
             print("{enemy}'s attack missed you!\n")
-            display
+            display()
     # Player turn
     else:
-        choice = input("\nIt's time to act!. Either attack or run away like a cooward. Type either \'attack\', or \'run\'. "
-                       "\nYou will have to retype your input if you misspell it: ")
-        try:
+        # Action prompt
+        while True:  
+            choice = input("\nIt's time to act!. Either attack or run away like a cooward. Type either \'attack\', or \'run\'. "
+                           "\nYou will have to retype your input if you misspell it: ")
             # Check if the input is spelled correctly
-            if choice=="attack" or choice=="run":
-                # Check if it's attack
-                if choice == "attack":
-                    if random.choice(True, False) == True:
-                        enemy_hp -= 10
-                        print("\nYour attack hit the {enemy}!") 
-                        enemy_display()
-                    else:
-                        print("\nYour attack missed! You stoopid.")
-                        enemy_display()
-                # Check if it's run
-                elif choice == "run":
-                    if random.choice(True, False) == True:
-                        print("\nYou ran away from your duty you cooward!")
-                        break
-                    else:
-                        print("\nYou failed to run away you cooward!")
-                        continue
+            if choice in ['attack', 'run']:
+                break
             # Create an error if it isn't spelled correctly
-            else:
-                dummy_error_variable = 10/0
-        except:
             print("\nYour input did not read as \"attack\" or \"run\".")
+
+        # Check if it's attack
+        if choice == "attack":
+            if rand_bool():
+                enemy_hp -= 10
+                print("\nYour attack hit the {enemy}!") 
+            else:
+                print("\nYour attack missed! You stoopid.")
+            enemy_display()
+        # Check if it's run
+        elif choice == "run":
+            if rand_bool():
+                print("\nYou ran away from your duty you cooward!")
+                break
+            else:
+                print("\nYou failed to run away you cooward!")
+                continue
         # Checks for victory or loss each round of turns
         if hp<0 and enemy_hp>0:
             victory = False
