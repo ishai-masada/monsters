@@ -1,10 +1,10 @@
 import json
 
 class Creature:
-    def __init__(self, level, name, type, hp, strength, defense, accuracy, resistance, speed):
+    def __init__(self, level, name, _type, hp, strength, defense, accuracy, resistance, speed):
         self.level = level
         self.name = name
-        self.type = type
+        self.type = _type
         self.hp = hp
         self.strength = strength
         self.speed = speed

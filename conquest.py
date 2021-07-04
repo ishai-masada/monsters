@@ -1,4 +1,5 @@
 import random
+from creatures import Creature
 
 def display():
     print(f'\nInventory: {inventory}', f'\nHealth: {hp}', f'\nStrength: {strength}')
@@ -9,20 +10,26 @@ def enemy_display():
 def rand_bool():
     return random.choice([True, False])
 
+def load_creatures():
+    with open('creatures.json', 'r') as f:
+        creatures_json = json.load(f)
+
+    creatures = {}
+    for name, stats in creatures_json.items():
+        creatures[name] = Creature.from_json(stats)
+    return creatures
 # Start of the game
 print("Welcome to Conquest!", "\nYour goal is to conquer every planet and establish peace.")
 input("press enter to start the first battle...")
-
-creatures = ["bitbit", "mantois", "rocklit", "pythooner", "dragoooner", "moonkier", "woorm"]
-planets = ["mars \'r us", "pluutoen", "darkusus"] 
+creatures = load_creatures()
+random.choice(creatures.values())
 
 inventory = []
-hp = 100
-enemy_hp = 50
+hp = 4
+enemy_hp = 100
 strength = 10
 enemy =random.choice(creatures).title()
 destination = random.choice(planets)
-victory = True
 
 print(f"The first battle is with a {enemy} on planet {destination} \n")
 print(f"{enemy} has an hp of 50 and a strength of 4. Diminish its health to defeat it!")
@@ -30,7 +37,7 @@ print("\nThese are your stats: ")
 display()
 
 count = 0
-while hp > 0 and enemy_hp > 0:
+while True:
     count += 1
     # Enemy turn
     if count % 2 == 0:
@@ -71,10 +78,9 @@ while hp > 0 and enemy_hp > 0:
                 print("\nYou failed to run away you cooward!")
                 continue
         # Checks for victory or loss each round of turns
-        if hp<0 and enemy_hp>0:
-            victory = False
-            print("\nYou have lost! Return to the home you came from.")
-            break
-        elif hp>0 and enemy_hp<0:
-            print("\nYou have defeated your enemy and attained victory! Congratulations!")
-            break
+    if hp<=0 and enemy_hp>0:
+        print("\nYou have lost! Return to the home you came from.")
+        break
+    elif hp>0 and enemy_hp<=0:
+        print("\nYou have defeated your enemy and attained victory! Congratulations!")
+        break
