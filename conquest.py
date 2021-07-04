@@ -29,12 +29,13 @@ print(f"{enemy} has an hp of 50 and a strength of 4. Diminish its health to defe
 print("\nThese are your stats: ")
 display()
 
-count = 1
+count = 0
 while hp > 0 and enemy_hp > 0:
+    count += 1
     # Enemy turn
     if count % 2 == 0:
         print(f"{enemy} attacks you!")
-        if random.choice(True, False) == True:
+        if rand_bool():
             hp -= 4
             print("{enemy}'s attack hit you!\n")
             display()
@@ -57,7 +58,7 @@ while hp > 0 and enemy_hp > 0:
         if choice == "attack":
             if rand_bool():
                 enemy_hp -= 10
-                print("\nYour attack hit the {enemy}!") 
+                print(f"\nYour attack hit the {enemy}!") 
             else:
                 print("\nYour attack missed! You stoopid.")
             enemy_display()
@@ -77,4 +78,3 @@ while hp > 0 and enemy_hp > 0:
         elif hp>0 and enemy_hp<0:
             print("\nYou have defeated your enemy and attained victory! Congratulations!")
             break
-        count += 1
