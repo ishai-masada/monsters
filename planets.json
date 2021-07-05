@@ -1,129 +1,133 @@
 {
-    "planets": [
-        {
-            "name": "mars 'r us",
-            "levels": [
-                {
-                    "name": "Intro!",
-                    "creatures": [
-                        "mantoise",
-                        "bitbit"
-                    ],
-                    "rewards": {
-                        "potions": 1,
-                        "gold": 10,
-                        "xp": 12
-                    }
-                },
-                {
-                    "name": "Storm the Village!",
-                    "creatures": [
-                        "moonkier",
-                        "woorm",
-                        "moonkier"
-                    ],
-                    "rewards": {
-                        "gold": 150,
-                        "xp": 30
-                    }
-                },
+    {
+	    "mars 'r us": {
+	    "name": "Mars 'r Us",
+	    "number_of_levels": 4,
+	    "levels": [
 		{
-                    "name": "Protect the Village!",
-                    "creatures": [
-                        "mantoise",
+		    "name": "Intro!",
+		    "creatures": [
+			"mantoise",
+			"bitbit"
+		    ],
+		    "rewards": {
+			"potions": 1,
+			"gold": 10,
+			"xp": 12
+		    }
+		},
+		{
+		    "name": "Storm the Village!",
+		    "creatures": [
 			"moonkier",
-                        "bitbit",
+			"woorm",
+			"moonkier"
+		    ],
+		    "rewards": {
+			"gold": 150,
+			"xp": 30
+		    }
+		},
+		{
+		    "name": "Protect the Village!",
+		    "creatures": [
+			"mantoise",
+			"moonkier",
+			"bitbit",
 			"rocklit",
 			"rocklit"
-                    ],
-                    "rewards": {
-                        "potions": 2,
-                        "gold": 150,
-                        "xp": 50
-                    }
-                },
-                {
-                    "name": "Escort!",
-                    "creatures": [
-                        "bitbit",
-                        "woorm",
-                        "moonkier",
+		    ],
+		    "rewards": {
+			"potions": 2,
+			"gold": 150,
+			"xp": 50
+		    }
+		},
+		{
+		    "name": "Escort!",
+		    "creatures": [
+			"bitbit",
+			"woorm",
+			"moonkier",
 			"moonkier",
 			"mantoise"
-                    ],
-                    "rewards": {
-                        "gold": 100,
-                        "xp": 30
+		    ],
+		    "rewards": {
+			"gold": 100,
+			"xp": 30
 			}
 		}
-            ]
-        },
-        {
-            "name": "plutooe",
-            "levels": [
-                {
-                    "name": "Breach and Clear!",
-                    "creatures": [
-                        "bitbit",
-                        "bitbit",
+	    ]
+	    },
+	{
+	    "plutooe": {
+	    "name": "Plutooe",
+	    "number_of_levels": 4,
+	    "levels": [
+		{
+		    "name": "Breach and Clear!",
+		    "creatures": [
+			"bitbit",
+			"bitbit",
 			"bitbit",
 			"mantoise",
 			"mantoise",
 			"mantoise"
-                    ],
-                    "rewards": {
-                        "potions": 1,
-                        "gold": 120,
-                        "xp": 50
-                    }
-                },
-                {
-                    "name": "Find the Nest!",
-                    "creatures": [
-                        "a bee",
-                        "a bee",
-                        "a bee",
+		    ],
+		    "rewards": {
+			"potions": 1,
+			"gold": 120,
+			"xp": 50
+		    }
+		},
+		{
+		    "name": "Find the Nest!",
+		    "creatures": [
+			"a bee",
+			"a bee",
+			"a bee",
 			"a bee",
 			"a bee",
 			"a bee",
 			"a bee"
-                    ],
-                    "rewards": {
+		    ],
+		    "rewards": {
 			"potions": 1,
-                        "gold": 160,
-                        "xp": 70
-                    }
-                },
+			"gold": 160,
+			"xp": 70
+		    }
+		},
 		{
-                    "name": "Conflict!",
-                    "creatures": [
-                        "dragoooner",
-                        "woorm",
+		    "name": "Conflict!",
+		    "creatures": [
+			"dragoooner",
+			"woorm",
 			"woorm"
-                    ],
-                    "rewards": {
-		        "potions": 3,
-                        "gold": 50,
-                        "xp": 80
-                    }
-                },
-                {
-                    "name": "Ambush!",
-                    "creatures": [
-                        "moonkier",
-                        "rocklit",
-                        "bitbit",
+		    ],
+		    "rewards": {
+			"potions": 3,
+			"gold": 50,
+			"xp": 80
+		    }
+		},
+		{
+		    "name": "Ambush!",
+		    "creatures": [
+			"moonkier",
+			"rocklit",
+			"bitbit",
 			"bitbit",
 			"woorm",
 			"woorm"
-                    ],
-                    "rewards": {
+		    ],
+		    "rewards": {
 			"potions": 2,
-                        "gold": 100,
-                        "xp": 60
+			"gold": 100,
+			"xp": 60
 			}
 		}
-            ]
+	    ]
         }
-    ]
+    }
+}
 }
