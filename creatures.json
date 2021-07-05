@@ -65,7 +65,7 @@
         "accuracy": 3,
         "resistance": 0
     },
-    "a bee": {
+    "a_bee": {
         "name": "A Bee",
         "type": "forest",
         "level": 4,
