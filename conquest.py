@@ -1,11 +1,13 @@
 import random
+import json
+from planets import Planet
 from creatures import Creature
 
 def display():
     print(f'\nInventory: {inventory}', f'\nHealth: {hp}', f'\nStrength: {strength}')
 
 def enemy_display():
-    print(f'\nName: {enemy}', f'\nHealth: {enemy_hp}', f'\nStrength: 4')
+    print(f'\nName: {enemy}', f'\nHealth: {enemy_hp}', '\nStrength: 4')
 
 def rand_bool():
     return random.choice([True, False])
@@ -18,20 +20,27 @@ def load_creatures():
     for name, stats in creatures_json.items():
         creatures[name] = Creature.from_json(stats)
     return creatures
+
+def load_planets():
+    with open('planets.json', 'r') as f:
+        planets_json = json.load(f)
+
+    planets = {}
+    for name, stats  in planets_json.items():
+        planets[name] = Planet.from_json(stats)
+    return planets
+
 # Start of the game
 print("Welcome to Conquest!", "\nYour goal is to conquer every planet and establish peace.")
 input("press enter to start the first battle...")
 creatures = load_creatures()
-random.choice(creatures.values())
+planets = load_planets()
 
 inventory = []
-hp = 4
-enemy_hp = 100
-strength = 10
-enemy =random.choice(creatures).title()
-destination = random.choice(planets)
+player = list(creatures).pop(random.randrange(len(creatures)))
+enemy = random.choice(list((creatures.values())))
 
-print(f"The first battle is with a {enemy} on planet {destination} \n")
+# print(f"The first battle is with a {enemy} on planet {planets} \n")
 print(f"{enemy} has an hp of 50 and a strength of 4. Diminish its health to defeat it!")
 print("\nThese are your stats: ")
 display()
