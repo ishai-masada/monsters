@@ -4,10 +4,10 @@ from planets import Planet
 from creatures import Creature
 
 def display():
-    print(f'\nInventory: {inventory}', f'\nHealth: {hp}', f'\nStrength: {strength}')
+    print(f'\nInventory: {inventory}', f'\nName: {player.name}', f'\nType: {player.type}', f'\nLevel: {player.level}', f'\nHealth: {player.hp}', f'\nStrength: {player.strength}', f'\nDefense: {player.defense}', f'\nSpeed: {player.speed}', f'\nAccuracy: {player.accuracy}', f'\nResistance: {player.resistance}')
 
 def enemy_display():
-    print(f'\nName: {enemy}', f'\nHealth: {enemy_hp}', '\nStrength: 4')
+    print(f'\nName: {enemy.name}', f'\nType: {enemy.type}', f'\nLevel: {enemy.level}', f'\nHealth: {enemy.hp}', f'\nStrength: {enemy.strength}', f'\nDefense: {enemy.defense}', f'\nSpeed: {enemy.speed}', f'\nAccuracy: {enemy.accuracy}', f'\nResistance: {enemy.resistance}')
 
 def rand_bool():
     return random.choice([True, False])
@@ -25,9 +25,9 @@ def load_planets():
     with open('planets.json', 'r') as f:
         planets_json = json.load(f)
 
-    planets = {}
-    for name, stats  in planets_json.items():
-        planets[name] = Planet.from_json(stats)
+    planets = []
+    for planet in planets_json.get("planets"):
+        planets.append(Planet.from_json(planet))
     return planets
 
 # Start of the game
@@ -37,11 +37,11 @@ creatures = load_creatures()
 planets = load_planets()
 
 inventory = []
-player = list(creatures).pop(random.randrange(len(creatures)))
+player = creatures.pop(random.choice(list(creatures)))
 enemy = random.choice(list((creatures.values())))
 
 # print(f"The first battle is with a {enemy} on planet {planets} \n")
-print(f"{enemy} has an hp of 50 and a strength of 4. Diminish its health to defeat it!")
+print(f"{enemy.name} has a health of {enemy.hp} and a strength of {enemy.strength}. Diminish its health to defeat it!")
 print("\nThese are your stats: ")
 display()
 
@@ -50,13 +50,13 @@ while True:
     count += 1
     # Enemy turn
     if count % 2 == 0:
-        print(f"{enemy} attacks you!")
+        print(f"{enemy.name} attacks you!")
         if rand_bool():
-            hp -= 4
-            print("{enemy}'s attack hit you!\n")
+            player.hp -= 4
+            print("{enemy.name}'s attack hit you!\n")
             display()
         else:
-            print("{enemy}'s attack missed you!\n")
+            print("{enemy.name}'s attack missed you!\n")
             display()
     # Player turn
     else:
@@ -73,8 +73,8 @@ while True:
         # Check if it's attack
         if choice == "attack":
             if rand_bool():
-                enemy_hp -= 10
-                print(f"\nYour attack hit the {enemy}!") 
+                enemy.hp -= 10
+                print(f"\nYour attack hit the {enemy.name}!") 
             else:
                 print("\nYour attack missed! You stoopid.")
             enemy_display()
@@ -87,9 +87,9 @@ while True:
                 print("\nYou failed to run away you cooward!")
                 continue
         # Checks for victory or loss each round of turns
-    if hp<=0 and enemy_hp>0:
+    if player.hp<=0 and enemy.hp>0:
         print("\nYou have lost! Return to the home you came from.")
         break
-    elif hp>0 and enemy_hp<=0:
+    elif player.hp>0 and enemy.hp<=0:
         print("\nYou have defeated your enemy and attained victory! Congratulations!")
         break
