@@ -19,6 +19,6 @@ if __name__ == '__main__':
     with open('planets.json', 'r') as f:
         planets_json = json.load(f)
 
-    planets = {}
-    for name, stats in planets_json.items():
-        planets[stats] = Planet.from_json(stats)
+    planets = []
+    for planet in planets_json().get("planets"):
+        planets.append(Planet.from_json(planet))
