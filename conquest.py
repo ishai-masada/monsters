@@ -30,6 +30,57 @@ def load_planets():
         planets.append(Planet.from_json(planet))
     return planets
 
+def battle():
+    count = 0
+    while True:
+        count += 1
+        # Enemy turn
+        if count % 2 == 0:
+            print(f"{enemy.name} attacks you!")
+            if rand_bool():
+                player.hp -= 4
+                print("{enemy.name}'s attack hit you!\n")
+                display()
+            else:
+                print("{enemy.name}'s attack missed you!\n")
+                display()
+        # Player turn
+        else:
+            # Action prompt
+            while True:  
+                choice = input("\nIt's time to act!. Either attack or run away like a cooward. Type either \'attack\', or \'run\'. "
+                               "\nYou will have to retype your input if you misspell it: ")
+                # Check if the input is spelled correctly
+                if choice in ['attack', 'run']:
+                    break
+                # Create an error if it isn't spelled correctly
+                print("\nYour input did not read as \"attack\" or \"run\".")
+
+            # Check if it's attack
+            if choice == "attack":
+                if rand_bool():
+                    enemy.hp -= 10
+                    print(f"\nYour attack hit the {enemy.name}!") 
+                else:
+                    print("\nYour attack missed! You stoopid.")
+                enemy_display()
+            # Check if it's run
+            elif choice == "run":
+                if rand_bool():
+                    print("\nYou ran away from your duty you cooward!")
+                    break
+                else:
+                    print("\nYou failed to run away you cooward!")
+                    continue
+            # Checks for victory or loss each round of turns
+        if player.hp<=0 and enemy.hp>0:
+            print("\nYou have lost! Return to the home you came from.")
+            break
+        elif player.hp>0 and enemy.hp<=0:
+            print("\nYou have defeated your enemy and attained victory! Congratulations!")
+            break
+    return 0
+
 # Start of the game
 print("Welcome to Conquest!", "\nYour goal is to conquer every planet and establish peace.")
 input("press enter to start the first battle...")
@@ -45,51 +96,3 @@ print(f"{enemy.name} has a health of {enemy.hp} and a strength of {enemy.strengt
 print("\nThese are your stats: ")
 display()
 
-count = 0
-while True:
-    count += 1
-    # Enemy turn
-    if count % 2 == 0:
-        print(f"{enemy.name} attacks you!")
-        if rand_bool():
-            player.hp -= 4
-            print("{enemy.name}'s attack hit you!\n")
-            display()
-        else:
-            print("{enemy.name}'s attack missed you!\n")
-            display()
-    # Player turn
-    else:
-        # Action prompt
-        while True:  
-            choice = input("\nIt's time to act!. Either attack or run away like a cooward. Type either \'attack\', or \'run\'. "
-                           "\nYou will have to retype your input if you misspell it: ")
-            # Check if the input is spelled correctly
-            if choice in ['attack', 'run']:
-                break
-            # Create an error if it isn't spelled correctly
-            print("\nYour input did not read as \"attack\" or \"run\".")
-
-        # Check if it's attack
-        if choice == "attack":
-            if rand_bool():
-                enemy.hp -= 10
-                print(f"\nYour attack hit the {enemy.name}!") 
-            else:
-                print("\nYour attack missed! You stoopid.")
-            enemy_display()
-        # Check if it's run
-        elif choice == "run":
-            if rand_bool():
-                print("\nYou ran away from your duty you cooward!")
-                break
-            else:
-                print("\nYou failed to run away you cooward!")
-                continue
-        # Checks for victory or loss each round of turns
-    if player.hp<=0 and enemy.hp>0:
-        print("\nYou have lost! Return to the home you came from.")
-        break
-    elif player.hp>0 and enemy.hp<=0:
-        print("\nYou have defeated your enemy and attained victory! Congratulations!")
-        break
