@@ -20,5 +20,5 @@ if __name__ == '__main__':
         planets_json = json.load(f)
 
     planets = []
-    for planet in planets_json().get("planets"):
+    for planet in planets_json.get("planets"):
         planets.append(Planet.from_json(planet))
