@@ -6,7 +6,7 @@ from creatures import Creature
 def display():
     print(f'\nInventory: {inventory}', f'\nName: {player.name}', f'\nType: {player.type}', f'\nLevel: {player.level}', f'\nHealth: {player.hp}', f'\nStrength: {player.strength}', f'\nDefense: {player.defense}', f'\nSpeed: {player.speed}', f'\nAccuracy: {player.accuracy}', f'\nResistance: {player.resistance}')
 
-def enemy_display():
+def enemy_display(enemy):
     print(f'\nName: {enemy.name}', f'\nType: {enemy.type}', f'\nLevel: {enemy.level}', f'\nHealth: {enemy.hp}', f'\nStrength: {enemy.strength}', f'\nDefense: {enemy.defense}', f'\nSpeed: {enemy.speed}', f'\nAccuracy: {enemy.accuracy}', f'\nResistance: {enemy.resistance}')
 
 def rand_bool():
@@ -30,7 +30,8 @@ def load_planets():
         planets.append(Planet.from_json(planet))
     return planets
 
-def battle():
+def battle(enemy):
+    print(f"\nYou are fighting a {enemy.name}!")
     count = 0
     while True:
         count += 1
@@ -63,7 +64,7 @@ def battle():
                     print(f"\nYour attack hit the {enemy.name}!") 
                 else:
                     print("\nYour attack missed! You stoopid.")
-                enemy_display()
+                enemy_display(enemy)
             # Check if it's run
             elif choice == "run":
                 if rand_bool():
@@ -89,10 +90,16 @@ planets = load_planets()
 
 inventory = []
 player = creatures.pop(random.choice(list(creatures)))
-enemy = random.choice(list((creatures.values())))
 
 # print(f"The first battle is with a {enemy} on planet {planets} \n")
-print(f"{enemy.name} has a health of {enemy.hp} and a strength of {enemy.strength}. Diminish its health to defeat it!")
+# print(f"{enemy.name} has a health of {enemy.hp} and a strength of {enemy.strength}. Diminish its health to defeat it!")
 print("\nThese are your stats: ")
 display()
 
+level_1 = planets[0].levels[0]
+print(f"This is the first level : {level_1}")
+for creature in level_1.get('creatures'):
+    print(f'creatures: {creatures}')
+    creature = creatures.get(creature)
+    print(f'creature: {creature}')
+    battle(creature)
