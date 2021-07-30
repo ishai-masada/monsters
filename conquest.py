@@ -99,7 +99,5 @@ display()
 level_1 = planets[0].levels[0]
 print(f"This is the first level : {level_1}")
 for creature in level_1.get('creatures'):
-    print(f'creatures: {creatures}')
     creature = creatures.get(creature)
-    print(f'creature: {creature}')
     battle(creature)
