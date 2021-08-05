@@ -89,7 +89,8 @@ def battle(enemy):
             print("\nYou have defeated your enemy and attained victory! Congratulations!")
             break
     return 0
-# Start of the game
+
+### Start of the game
 print("Welcome to Conquest!", "\nYour goal is to conquer every planet and establish peace.")
 # input("press enter to start the first battle...")
 creatures = load_creatures()
