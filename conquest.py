@@ -1,8 +1,9 @@
 import random
+import abilities
 from copy import deepcopy
 import json
 from planets import Planet
-from creatures import Creature
+from models import Creature
 
 def display():
     print(f'\nInventory: {inventory}', f'\nName: {player.name}', f'\nType: {player.type}', f'\nLevel: {player.level}', f'\nHealth: {player.hp}', f'\nStrength: {player.strength}', f'\nDefense: {player.defense}', f'\nSpeed: {player.speed}', f'\nAccuracy: {player.accuracy}', f'\nResistance: {player.resistance}')
@@ -19,7 +20,7 @@ def load_creatures():
 
     creatures = {}
     for name, stats in creatures_json.items():
-        creatures[name] = Creature.from_json(stats)
+        creatures[name] = Creature.from_json(stats, abilities_map)
     return creatures
 
 def load_planets():
@@ -31,15 +32,11 @@ def load_planets():
         planets.append(Planet.from_json(planet))
     return planets
 
-def battle_attack(enemy):
-    if rand_bool():
-        enemy.hp -= 10
-        print(f"\nYour attack hit the {enemy.name}!") 
-    else:
-        print("\nYour attack missed! You stoopid.")
-    enemy_display(enemy)
+def battle_attack(player, enemy):
+    print(player.abilities)
+    input(f'Enter the attack you want to do: ')
 
-def battle_run(enemy):
+def battle_run(player, enemy):
     if rand_bool():
         print("\nYou ran away from your duty you cooward!")
         return 'break'
@@ -48,6 +45,7 @@ def battle_run(enemy):
         return 'continue'
 
 BATTLE_MENU = {'attack': battle_attack, 'run': battle_run}
+abilities_map = {"hard_punch": abilities.hard_punch, "wiggle": abilities.wiggle, "fire_attack": abilities.fire_attack, "nibble": abilities.nibble, "crush": abilities.crush, "spear_attack": abilities.spear_attack, "sting": abilities.sting}
 
 def battle(enemy):
     print(f'\nThis is the enemy argument: {enemy}')
@@ -76,7 +74,7 @@ def battle(enemy):
                     break
                 # Create an error if it isn't spelled correctly
                 print("\nYour input did not read as \"attack\" or \"run\".")
-            prompt = BATTLE_MENU[choice](enemy)
+            prompt = BATTLE_MENU[choice](player, enemy)
             if prompt == 'break':
                 break
             elif prompt == 'continue':
@@ -98,7 +96,7 @@ planets = load_planets()
 
 inventory = []
 player = deepcopy(creatures.get(random.choice(list(creatures))))
-
+print(f'player: {player}')
 # print(f"The first battle is with a {enemy} on planet {planets} \n")
 # print(f"{enemy.name} has a health of {enemy.hp} and a strength of {enemy.strength}. Diminish its health to defeat it!")
 print("\nThese are your stats: ")
@@ -107,6 +105,7 @@ display()
 level_1 = planets[0].levels[0]
 print(f"This is the first level : {level_1}")
 monsters = level_1.get('creatures')
+
 for creature in monsters:
     monster = deepcopy(creatures.get(creature))
     battle(monster)

@@ -9,7 +9,7 @@
         "speed": 13,
         "accuracy": 6,
         "resistance": 3,
-	"abilities": {"hard punch": hard_punch()}
+	"abilities":["hard_punch"] 
     },
     "woorm": {
         "name": "Woorm",
@@ -21,7 +21,7 @@
         "speed": 3,
         "accuracy": 8,
         "resistance": 3,
-	"abilities": {"wiggle": wiggle()}
+	"abilities": ["wiggle"]
     },
     "dragoooner": {
         "name": "Dragoooner",
@@ -33,7 +33,7 @@
         "speed": 12,
         "accuracy": 6,
         "resistance": 4,
-	"abilities": {"fire attack": fire_attack()}
+	"abilities": ["fire_attack"]
     },
     "bitbit": {
         "name": "Bitbit",
@@ -45,7 +45,7 @@
         "speed": 17,
         "accuracy": 10,
         "resistance": 3,
-	"abilities": {"nibble": nibble()}
+	"abilities": ["nibble"]
     },
     "rocklit": {
         "name": "Rocklit",
@@ -57,7 +57,7 @@
         "speed": 4,
         "accuracy": 5,
         "resistance": 15,
-	"abilities": {"crush": crush()}
+	"abilities": ["crush"]
     },
     "mantoise": {
         "name": "Mantoise",
@@ -69,7 +69,7 @@
         "speed": 3,
         "accuracy": 3,
         "resistance": 0,
-	"abilities": {"spear attack": spear_attack()}
+	"abilities": ["spear_attack"]
     },
     "a_bee": {
         "name": "A Bee",
@@ -81,6 +81,6 @@
         "speed": 8,
         "accuracy": 5,
         "resistance": 0,
-	"abilities": {"sting": sting()}
+	"abilities": ["sting"]
     }
 }
