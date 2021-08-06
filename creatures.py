@@ -32,7 +32,7 @@ class Creature:
 
         return cls(level=creature_json['level'], _type=creature_json['type'], name=creature_json['name'], hp=creature_json['hp'], strength=creature_json['strength'], defense=creature_json['defense'], accuracy=creature_json['accuracy'], resistance=creature_json['resistance'], speed=creature_json['speed'], abilities=actions)
 
-abilities_map = {"hard_punch": abilities.hard_punch(), "wiggle": abilities.wiggle(), "fire_attack": abilities.fire_attack(), "nibble": abilities.nibble(), "crush": abilities.crush(), "spear_attack": abilities.spear_attack(), "sting": abilities.sting()}
+abilities_map = {"hard_punch": abilities.hard_punch, "wiggle": abilities.wiggle, "fire_attack": abilities.fire_attack, "nibble": abilities.nibble, "crush": abilities.crush, "spear_attack": abilities.spear_attack, "sting": abilities.sting}
 
 if __name__ == '__main__':
     with open('creatures.json', 'r') as f:
