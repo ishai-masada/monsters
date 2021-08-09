@@ -1,4 +1,5 @@
 import random
+import items
 import abilities
 from copy import deepcopy
 import json
@@ -6,7 +7,7 @@ from planets import Planet
 from models import Creature
 
 def display():
-    print(f'\nInventory: {inventory}', f'\nName: {player.name}', f'\nType: {player.type}', f'\nLevel: {player.level}', f'\nHealth: {player.hp}', f'\nStrength: {player.strength}', f'\nDefense: {player.defense}', f'\nSpeed: {player.speed}', f'\nAccuracy: {player.accuracy}', f'\nResistance: {player.resistance}')
+    print(f'\nInventory: {Inventory}', f'\nName: {player.name}', f'\nType: {player.type}', f'\nLevel: {player.level}', f'\nHealth: {player.hp}', f'\nStrength: {player.strength}', f'\nDefense: {player.defense}', f'\nSpeed: {player.speed}', f'\nAccuracy: {player.accuracy}', f'\nResistance: {player.resistance}')
 
 def enemy_display(enemy):
     print(f'\nName: {enemy.name}', f'\nType: {enemy.type}', f'\nLevel: {enemy.level}', f'\nHealth: {enemy.hp}', f'\nStrength: {enemy.strength}', f'\nDefense: {enemy.defense}', f'\nSpeed: {enemy.speed}', f'\nAccuracy: {enemy.accuracy}', f'\nResistance: {enemy.resistance}')
@@ -33,8 +34,21 @@ def load_planets():
     return planets
 
 def battle_attack(player, enemy):
-    print(player.abilities)
-    input(f'Enter the attack you want to do: ')
+    print(f'\nYour abilities: {player.abilities}')
+    while True:
+        option = input('\nEnter the attack you want: ')
+        if option in abilities_map:
+            print(f'\nYou attack the {enemy.name} with {option}!')
+            break 
+        else:
+            print('\nYour input was not a valid attack')
+    if rand_bool():
+        print(f'\nYour attack hit the {enemy.name}!')
+        abilities_map[option](player, enemy)
+        enemy_display(enemy)
+    else:
+        print(f'\nYour attack missed the {enemy.name}!')
+    return 0
 
 def battle_run(player, enemy):
     if rand_bool():
@@ -44,10 +58,12 @@ def battle_run(player, enemy):
         print("\nYou failed to run away you cooward!")
         return 'continue'
 
-BATTLE_MENU = {'attack': battle_attack, 'run': battle_run}
-abilities_map = {"hard_punch": abilities.hard_punch, "wiggle": abilities.wiggle, "fire_attack": abilities.fire_attack, "nibble": abilities.nibble, "crush": abilities.crush, "spear_attack": abilities.spear_attack, "sting": abilities.sting}
+def battle_items(player, enemy, Inventory):
+    print(f'Inventory: {Inventory}')
+    Inventory.pop(input('Enter the item you want to use: '))
+    print(f'Inventory: {Inventory}')
 
-def battle(enemy):
+def battle(idx, enemy):
     print(f'\nThis is the enemy argument: {enemy}')
     print(f"\nYou are fighting a {enemy.name}!")
     count = 0
@@ -55,13 +71,13 @@ def battle(enemy):
         count += 1
         # Enemy turn
         if count % 2 == 0:
-            print(f"{enemy.name} attacks you!")
+            print(f"\n{enemy.name} attacks you!")
             if rand_bool():
                 player.hp -= 4
-                print(f"{enemy.name}'s attack hit you!\n")
+                print(f"\n{enemy.name}'s attack hit you!")
                 display()
             else:
-                print(f"{enemy.name}'s attack missed you!\n")
+                print(f"\n{enemy.name}'s attack missed you!")
                 display()
         # Player turn
         else:
@@ -79,26 +95,33 @@ def battle(enemy):
                 break
             elif prompt == 'continue':
                 continue
-            # Checks for victory or loss each round of turns
+        # Checks for victory or loss each round of turns
         if player.hp<=0 and enemy.hp>0:
             print("\nYou have lost! Return to the home you came from.")
             break
         elif player.hp>0 and enemy.hp<=0:
-            print("\nYou have defeated your enemy and attained victory! Congratulations!")
+            # Checks to see if the monster is the last monster in the level 
+            if idx >= (len(monsters)-1):
+                print("\nYou have defeated your enemies and attained victory! Congratulations!")
+                break
+            else:
+                print(f"\nYou have defeated the {enemy.name}!")
             break
     return 0
 
+BATTLE_MENU = {'attack': battle_attack, 'run': battle_run}
+abilities_map = {"hard_punch": abilities.hard_punch, "wiggle": abilities.wiggle, "fire_attack": abilities.fire_attack, "nibble": abilities.nibble, "crush": abilities.crush, "spear_attack": abilities.spear_attack, "sting": abilities.sting}
+items_map = {"small_recover": items.small_recover}
+
 ### Start of the game
 print("Welcome to Conquest!", "\nYour goal is to conquer every planet and establish peace.")
-# input("press enter to start the first battle...")
 creatures = load_creatures()
 planets = load_planets()
 
-inventory = []
+Inventory = []
+Inventory.append(items_map["small_recover"])
 player = deepcopy(creatures.get(random.choice(list(creatures))))
 print(f'player: {player}')
-# print(f"The first battle is with a {enemy} on planet {planets} \n")
-# print(f"{enemy.name} has a health of {enemy.hp} and a strength of {enemy.strength}. Diminish its health to defeat it!")
 print("\nThese are your stats: ")
 display()
 
@@ -106,6 +129,6 @@ level_1 = planets[0].levels[0]
 print(f"This is the first level : {level_1}")
 monsters = level_1.get('creatures')
 
-for creature in monsters:
+for idx, creature in enumerate(monsters):
     monster = deepcopy(creatures.get(creature))
-    battle(monster)
+    battle(idx, monster)
