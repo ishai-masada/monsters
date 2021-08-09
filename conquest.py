@@ -45,7 +45,10 @@ def battle_attack(player, enemy):
     if rand_bool():
         print(f'\nYour attack hit the {enemy.name}!')
         abilities_map[option](player, enemy)
-        enemy_display(enemy)
+        if enemy.hp < 0:
+            enemy.hp = 0
+        else:
+            enemy_display(enemy)
     else:
         print(f'\nYour attack missed the {enemy.name}!')
     return 0
@@ -64,7 +67,6 @@ def battle_items(player, enemy, Inventory):
     print(f'Inventory: {Inventory}')
 
 def battle(idx, enemy):
-    print(f'\nThis is the enemy argument: {enemy}')
     print(f"\nYou are fighting a {enemy.name}!")
     count = 0
     while True:
@@ -97,9 +99,13 @@ def battle(idx, enemy):
                 continue
         # Checks for victory or loss each round of turns
         if player.hp<=0 and enemy.hp>0:
+            player.hp = 0
+            display(player)
             print("\nYou have lost! Return to the home you came from.")
             break
         elif player.hp>0 and enemy.hp<=0:
+            enemy.hp = 0
+            enemy_display(enemy)
             # Checks to see if the monster is the last monster in the level 
             if idx >= (len(monsters)-1):
                 print("\nYou have defeated your enemies and attained victory! Congratulations!")
