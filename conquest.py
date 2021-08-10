@@ -63,8 +63,17 @@ def battle_run(player, enemy):
 
 def battle_items(player, enemy, Inventory):
     print(f'Inventory: {Inventory}')
-    Inventory.pop(input('Enter the item you want to use: '))
-    print(f'Inventory: {Inventory}')
+    while True:
+        item = input('\nEnter the item you want to use: ')
+        print(f'item: {item}')
+        if item in Inventory:
+            item = Inventory.get(item)
+            item(player, enemy)
+            print('You have healed yourself!')
+            display()
+            break
+        else:
+            print('\nYour input was not in your inventory')
 
 def battle(idx, enemy):
     print(f"\nYou are fighting a {enemy.name}!")
@@ -85,14 +94,14 @@ def battle(idx, enemy):
         else:
             # Action prompt
             while True:  
-                choice = input("\nIt's time to act!. Either attack or run away like a cooward. Type either \'attack\', or \'run\'. "
+                choice = input("\nIt's time to act!. Either attack, choose an item, or run away like a cooward. Type either \'attack\', \'items\', or \'run\'. "
                                "\nYou will have to retype your input if you misspell it: ")
                 # Check if the input is spelled correctly
                 if choice in BATTLE_MENU:
                     break
                 # Create an error if it isn't spelled correctly
                 print("\nYour input did not read as \"attack\" or \"run\".")
-            prompt = BATTLE_MENU[choice](player, enemy)
+            prompt = BATTLE_MENU[choice](player, enemy, Inventory)
             if prompt == 'break':
                 break
             elif prompt == 'continue':
@@ -115,17 +124,15 @@ def battle(idx, enemy):
             break
     return 0
 
-BATTLE_MENU = {'attack': battle_attack, 'run': battle_run}
+BATTLE_MENU = {'attack': battle_attack, 'run': battle_run, 'items': battle_items}
 abilities_map = {"hard_punch": abilities.hard_punch, "wiggle": abilities.wiggle, "fire_attack": abilities.fire_attack, "nibble": abilities.nibble, "crush": abilities.crush, "spear_attack": abilities.spear_attack, "sting": abilities.sting}
-items_map = {"small_recover": items.small_recover}
 
 ### Start of the game
 print("Welcome to Conquest!", "\nYour goal is to conquer every planet and establish peace.")
 creatures = load_creatures()
 planets = load_planets()
 
-Inventory = []
-Inventory.append(items_map["small_recover"])
+Inventory = {'small_recover': items.small_recover}
 player = deepcopy(creatures.get(random.choice(list(creatures))))
 print(f'player: {player}')
 print("\nThese are your stats: ")
