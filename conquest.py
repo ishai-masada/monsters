@@ -64,7 +64,7 @@ def battle_run(player, enemy):
 def battle_items(player, enemy, Inventory):
     print(f'Inventory: {Inventory}')
     while True:
-        item = input('\nEnter the item you want to use: ')
+        item = input('Enter the item you want to use: ')
         print(f'item: {item}')
         if item in Inventory:
             item = Inventory.get(item)
@@ -74,6 +74,7 @@ def battle_items(player, enemy, Inventory):
             break
         else:
             print('\nYour input was not in your inventory')
+    return 0
 
 def battle(idx, enemy):
     print(f"\nYou are fighting a {enemy.name}!")
