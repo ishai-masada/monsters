@@ -65,9 +65,8 @@ def battle_items(player, enemy, Inventory):
     print(f'Inventory: {Inventory}')
     while True:
         item = input('Enter the item you want to use: ')
-        print(f'item: {item}')
         if item in Inventory:
-            item = Inventory.get(item)
+            item = Inventory.pop(item)
             item(player, enemy)
             print('You have healed yourself!')
             display()
