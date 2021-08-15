@@ -33,7 +33,7 @@ def load_planets():
         planets.append(Planet.from_json(planet))
     return planets
 
-def battle_attack(player, enemy):
+def battle_attack(player, enemy, Inventory):
     print(f'\nYour abilities: {player.abilities}')
     while True:
         option = input('\nEnter the attack you want: ')
@@ -53,7 +53,7 @@ def battle_attack(player, enemy):
         print(f'\nYour attack missed the {enemy.name}!')
     return 0
 
-def battle_run(player, enemy):
+def battle_run(player, enemy, Inventory):
     if rand_bool():
         print("\nYou ran away from your duty you cooward!")
         return 'break'
