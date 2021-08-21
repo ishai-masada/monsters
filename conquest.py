@@ -33,25 +33,51 @@ def load_planets():
         planets.append(Planet.from_json(planet))
     return planets
 
+def enumeration(enumeratable):
+    if enumeratable == player.abilities:
+        print(f'\nYour abilities:')
+        for i, ability in enumerate(enumeratable):
+            print(f'\t{i + 1} - {ability}')
+    elif enumeratable == Inventory:
+        print(f'\nYour items:')
+        for i, enumeration.item_name in enumerate(enumeratable):
+            print(f'\t{i + 1} - {enumeration.item_name}')
+
+def enemy_attack(enemy, player, Inventory):
+    enemy_attack = random.choice(enemy.abilities) 
+    abilities_map[enemy_attack](enemy, player)
+    print(f'\n{enemy.name} attacks you with {enemy_attack}!')
+    if player.hp < 0:
+        player.hp = 0
+    else:
+        display()
+
 def battle_attack(player, enemy, Inventory):
-    print(f'\nYour abilities: {player.abilities}')
+    enumeration(player.abilities)
     while True:
         option = input('\nEnter the attack you want: ')
-        if option in abilities_map:
-            print(f'\nYou attack the {enemy.name} with {option}!')
-            break 
-        else:
-            print('\nYour input was not a valid attack')
-    if rand_bool():
-        print(f'\nYour attack hit the {enemy.name}!')
-        abilities_map[option](player, enemy)
-        if enemy.hp < 0:
-            enemy.hp = 0
-        else:
-            enemy_display(enemy)
-    else:
-        print(f'\nYour attack missed the {enemy.name}!')
-    return 0
+        try:
+            index = int(option) - 1
+            if index in range(len(player.abilities)):
+                attack = player.abilities[index]
+                print(f'\nYou attack the {enemy.name} with {attack}!')
+                if rand_bool():
+                    print(f'\nYour attack hit the {enemy.name}!')
+                    abilities_map[attack](player, enemy)
+                    if enemy.hp < 0:
+                        enemy.hp = 0
+                    else:
+                        enemy_display(enemy)
+                else:
+                    print(f'\nYour attack missed the {enemy.name}!')
+                break 
+            else:
+                print('Attack doesn\'t exist')
+        except ValueError:
+            if option == 'back':
+                return 'back'
+            else:
+                print('\nYour input was not a valid attack')
 
 def battle_run(player, enemy, Inventory):
     if rand_bool():
@@ -62,18 +88,25 @@ def battle_run(player, enemy, Inventory):
         return 'continue'
 
 def battle_items(player, enemy, Inventory):
-    print(f'Inventory: {Inventory}')
+    enumeration(Inventory)
     while True:
-        item = input('Enter the item you want to use: ')
-        if item in Inventory:
-            item = Inventory.pop(item)
-            item(player, enemy)
-            print('You have healed yourself!')
-            display()
-            break
-        else:
-            print('\nYour input was not in your inventory')
-    return 0
+        option = input('Enter the item you want to use: ')
+        try:
+            index = int(option) - 1
+            if index in range(len(Inventory)):
+                item = Inventory.pop(enumeration.item_name)
+                item(player, enemy)
+                print('You have healed yourself!')
+                display()
+            elif len(Inventory) == 0:
+                print('Inventory is empty')
+            else:
+                print('Item doesn\'t exist')
+        except ValueError:
+            if option == 'back':
+                return 'back'
+            else:
+                print('\nYour input was not an item in your Inventory')
 
 def battle(idx, enemy):
     print(f"\nYou are fighting a {enemy.name}!")
@@ -82,40 +115,36 @@ def battle(idx, enemy):
         count += 1
         # Enemy turn
         if count % 2 == 0:
-            print(f"\n{enemy.name} attacks you!")
-            if rand_bool():
-                player.hp -= 4
-                print(f"\n{enemy.name}'s attack hit you!")
+            enemy_attack(enemy, player, Inventory)
+            # Checks for loss 
+            if player.hp<=0 and enemy.hp>0:
+                player.hp = 0
                 display()
-            else:
-                print(f"\n{enemy.name}'s attack missed you!")
-                display()
+                print("\nYou have lost! Return to the home you came from.")
+                break
         # Player turn
         else:
-            # Action prompt
-            while True:  
-                choice = input("\nIt's time to act!. Either attack, choose an item, or run away like a cooward. Type either \'attack\', \'items\', or \'run\'. "
-                               "\nYou will have to retype your input if you misspell it: ")
-                # Check if the input is spelled correctly
-                if choice in BATTLE_MENU:
+            while True: # Loop for the player's turn
+                while True:  # Checking what the player wants to do 
+                    choice = input("\nIt's time to act!. Either attack, choose an item, or run away like a cooward. Type either \'attack\', \'items\', or \'run\'. "
+                                   "\nYou will have to retype your input if you misspell it: ")
+                    # Check if the input is spelled correctly
+                    if choice in BATTLE_MENU:
+                        break
+                    # Re-prompts if it isn't spelled correctly
+                    print("\nYour input did not read as \"attack\" or \"run\".")
+                action = BATTLE_MENU[choice](player, enemy, Inventory)
+                if action != 'back':
                     break
-                # Create an error if it isn't spelled correctly
-                print("\nYour input did not read as \"attack\" or \"run\".")
-            prompt = BATTLE_MENU[choice](player, enemy, Inventory)
-            if prompt == 'break':
+            if action == 'break':
                 break
-            elif prompt == 'continue':
+            elif action == 'continue':
                 continue
-        # Checks for victory or loss each round of turns
-        if player.hp<=0 and enemy.hp>0:
-            player.hp = 0
-            display(player)
-            print("\nYou have lost! Return to the home you came from.")
-            break
-        elif player.hp>0 and enemy.hp<=0:
+        # Checks for victory
+        if player.hp>0 and enemy.hp<=0:
             enemy.hp = 0
             enemy_display(enemy)
-            # Checks to see if the monster is the last monster in the level 
+            # Check to see if the monster is the last monster in the level 
             if idx >= (len(monsters)-1):
                 print("\nYou have defeated your enemies and attained victory! Congratulations!")
                 break
@@ -125,7 +154,7 @@ def battle(idx, enemy):
     return 0
 
 BATTLE_MENU = {'attack': battle_attack, 'run': battle_run, 'items': battle_items}
-abilities_map = {"hard_punch": abilities.hard_punch, "wiggle": abilities.wiggle, "fire_attack": abilities.fire_attack, "nibble": abilities.nibble, "crush": abilities.crush, "spear_attack": abilities.spear_attack, "sting": abilities.sting}
+abilities_map = {"push": abilities.push, "hard_punch": abilities.hard_punch, "wiggle": abilities.wiggle, "fire_attack": abilities.fire_attack, "nibble": abilities.nibble, "crush": abilities.crush, "spear_attack": abilities.spear_attack, "sting": abilities.sting}
 
 ### Start of the game
 print("Welcome to Conquest!", "\nYour goal is to conquer every planet and establish peace.")
@@ -133,7 +162,9 @@ creatures = load_creatures()
 planets = load_planets()
 
 Inventory = {'small_recover': items.small_recover}
-player = deepcopy(creatures.get(random.choice(list(creatures))))
+# TODO: i want to remove this line
+player = creatures['moonkier']
+# player = deepcopy(creatures.get(random.choice(list(creatures))))
 print(f'player: {player}')
 print("\nThese are your stats: ")
 display()
