@@ -162,9 +162,7 @@ creatures = load_creatures()
 planets = load_planets()
 
 Inventory = {'small_recover': items.small_recover}
-# TODO: i want to remove this line
-player = creatures['moonkier']
-# player = deepcopy(creatures.get(random.choice(list(creatures))))
+player = deepcopy(creatures.get(random.choice(list(creatures))))
 print(f'player: {player}')
 print("\nThese are your stats: ")
 display()
