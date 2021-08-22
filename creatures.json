@@ -9,7 +9,7 @@
         "speed": 13,
         "accuracy": 6,
         "resistance": 3,
-	"abilities":["hard_punch"] 
+	"abilities":["hard_punch", "push"] 
     },
     "woorm": {
         "name": "Woorm",
