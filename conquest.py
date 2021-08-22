@@ -7,7 +7,7 @@ from planets import Planet
 from models import Creature
 
 def display():
-    print(f'\nInventory: {Inventory}', f'\nName: {player.name}', f'\nType: {player.type}', f'\nLevel: {player.level}', f'\nHealth: {player.hp}', f'\nStrength: {player.strength}', f'\nDefense: {player.defense}', f'\nSpeed: {player.speed}', f'\nAccuracy: {player.accuracy}', f'\nResistance: {player.resistance}')
+    print(f'\nInventory: {Inventory}', f'\nName: {player_state.player.name}', f'\nType: {player_state.player.type}', f'\nLevel: {player_state.player.level}', f'\nHealth: {player_state.player.hp}', f'\nStrength: {player_state.player.strength}', f'\nDefense: {player_state.player.defense}', f'\nSpeed: {player_state.player.speed}', f'\nAccuracy: {player_state.player.accuracy}', f'\nResistance: {player_state.player.resistance}')
 
 def enemy_display(enemy):
     print(f'\nName: {enemy.name}', f'\nType: {enemy.type}', f'\nLevel: {enemy.level}', f'\nHealth: {enemy.hp}', f'\nStrength: {enemy.strength}', f'\nDefense: {enemy.defense}', f'\nSpeed: {enemy.speed}', f'\nAccuracy: {enemy.accuracy}', f'\nResistance: {enemy.resistance}')
@@ -34,7 +34,7 @@ def load_planets():
     return planets
 
 def enumeration(enumeratable):
-    if enumeratable == player.abilities:
+    if enumeratable == player_state.player.abilities:
         print(f'\nYour abilities:')
         for i, ability in enumerate(enumeratable):
             print(f'\t{i + 1} - {ability}')
@@ -115,10 +115,10 @@ def battle(idx, enemy):
         count += 1
         # Enemy turn
         if count % 2 == 0:
-            enemy_attack(enemy, player, Inventory)
+            enemy_attack(enemy, player_state.player, Inventory)
             # Checks for loss 
-            if player.hp<=0 and enemy.hp>0:
-                player.hp = 0
+            if player_state.player.hp<=0 and enemy.hp>0:
+                player_state.player.hp = 0
                 display()
                 print("\nYou have lost! Return to the home you came from.")
                 break
@@ -132,8 +132,8 @@ def battle(idx, enemy):
                     if choice in BATTLE_MENU:
                         break
                     # Re-prompts if it isn't spelled correctly
-                    print("\nYour input did not read as \"attack\" or \"run\".")
-                action = BATTLE_MENU[choice](player, enemy, Inventory)
+                    print("\nYour input did not read as \"attack\", \"items\", \"run\".")
+                action = BATTLE_MENU[choice](player_state.player, enemy, Inventory)
                 if action != 'back':
                     break
             if action == 'break':
@@ -141,7 +141,7 @@ def battle(idx, enemy):
             elif action == 'continue':
                 continue
         # Checks for victory
-        if player.hp>0 and enemy.hp<=0:
+        if player_state.player.hp>0 and enemy.hp<=0:
             enemy.hp = 0
             enemy_display(enemy)
             # Check to see if the monster is the last monster in the level 
@@ -153,6 +153,11 @@ def battle(idx, enemy):
             break
     return 0
 
+class PlayerState:
+    def __init__(self, planet, player):
+        self.planet = planet 
+        self.player = player
+
 BATTLE_MENU = {'attack': battle_attack, 'run': battle_run, 'items': battle_items}
 abilities_map = {"push": abilities.push, "hard_punch": abilities.hard_punch, "wiggle": abilities.wiggle, "fire_attack": abilities.fire_attack, "nibble": abilities.nibble, "crush": abilities.crush, "spear_attack": abilities.spear_attack, "sting": abilities.sting}
 
@@ -162,15 +167,21 @@ creatures = load_creatures()
 planets = load_planets()
 
 Inventory = {'small_recover': items.small_recover}
-player = deepcopy(creatures.get(random.choice(list(creatures))))
-print(f'player: {player}')
+player_state = PlayerState(0, deepcopy(creatures.get(random.choice(list(creatures)))))
+print(f'player: {player_state.player}')
 print("\nThese are your stats: ")
 display()
 
-level_1 = planets[0].levels[0]
-print(f"This is the first level : {level_1}")
-monsters = level_1.get('creatures')
-
-for idx, creature in enumerate(monsters):
-    monster = deepcopy(creatures.get(creature))
-    battle(idx, monster)
+while True:
+    planet = planets[player_state.planet]
+    level = planet.levels[0]
+    print(f"This is the planet : {planet}")
+    monsters = level.get('creatures')
+    for idx, creature in enumerate(monsters):
+        monster = deepcopy(creatures.get(creature))
+        battle(idx, monster)
+    if player_state.planet + 1 < len(planets):
+        player_state.planet += 1
+    else:
+        print("hoooray")
+        break
