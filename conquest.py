@@ -1,8 +1,8 @@
 import random
-import items
-import abilities
-from copy import deepcopy
 import json
+import items
+import abilities as moves
+from copy import deepcopy
 from planets import Planet
 from models import Creature
 
@@ -15,33 +15,18 @@ def enemy_display(enemy):
 def rand_bool():
     return random.choice([True, False])
 
-def load_creatures():
-    with open('creatures.json', 'r') as f:
-        creatures_json = json.load(f)
-
-    creatures = {}
-    for name, stats in creatures_json.items():
-        creatures[name] = Creature.from_json(stats, abilities_map)
-    return creatures
-
-def load_planets():
-    with open('planets.json', 'r') as f:
-        planets_json = json.load(f)
-
-    planets = []
-    for planet in planets_json.get("planets"):
-        planets.append(Planet.from_json(planet))
-    return planets
-
 def enumeration(enumeratable):
     if enumeratable == player_state.player.abilities:
         print(f'\nYour abilities:')
         for i, ability in enumerate(enumeratable):
             print(f'\t{i + 1} - {ability}')
     elif enumeratable == Inventory:
-        print(f'\nYour items:')
-        for i, enumeration.item_name in enumerate(enumeratable):
-            print(f'\t{i + 1} - {enumeration.item_name}')
+        if len(Inventory) > 0:
+            print(f'\nYour items:')
+            for i, enumeration.item_name in enumerate(enumeratable):
+                print(f'\t{i + 1} - {enumeration.item_name}')
+        else:
+            return 0
 
 def enemy_attack(enemy, player, Inventory):
     enemy_attack = random.choice(enemy.abilities) 
@@ -121,7 +106,8 @@ def battle(idx, enemy):
                 player_state.player.hp = 0
                 display()
                 print("\nYou have lost! Return to the home you came from.")
-                break
+                result = "loss"
+                return result
         # Player turn
         else:
             while True: # Loop for the player's turn
@@ -151,37 +137,60 @@ def battle(idx, enemy):
             else:
                 print(f"\nYou have defeated the {enemy.name}!")
             break
-    return 0
 
 class PlayerState:
-    def __init__(self, planet, player):
+    def __init__(self, planet, level, player):
         self.planet = planet 
+        self.level = level
         self.player = player
 
+def load_creatures():
+    with open('creatures.json', 'r') as f:
+        creatures_json = json.load(f)
+
+    creatures = {}
+    for name, stats in creatures_json.items():
+        creatures[name] = Creature.from_json(stats, abilities_map)
+    return creatures
+
+def load_planets():
+    with open('planets.json', 'r') as f:
+        planets_json = json.load(f)
+
+    planets = []
+    for planet in planets_json.get("planets"):
+        planets.append(Planet.from_json(planet))
+    return planets
+
+Inventory = {'small_recover': items.small_recover}
+abilities_map = {"push": moves.push, "hard_punch": moves.hard_punch, "wiggle": moves.wiggle, "fire_attack": moves.fire_attack, "nibble": moves.nibble, "crush": moves.crush, "spear_attack": moves.spear_attack, "sting": moves.sting}
 BATTLE_MENU = {'attack': battle_attack, 'run': battle_run, 'items': battle_items}
-abilities_map = {"push": abilities.push, "hard_punch": abilities.hard_punch, "wiggle": abilities.wiggle, "fire_attack": abilities.fire_attack, "nibble": abilities.nibble, "crush": abilities.crush, "spear_attack": abilities.spear_attack, "sting": abilities.sting}
 
 ### Start of the game
 print("Welcome to Conquest!", "\nYour goal is to conquer every planet and establish peace.")
 creatures = load_creatures()
 planets = load_planets()
 
-Inventory = {'small_recover': items.small_recover}
-player_state = PlayerState(0, deepcopy(creatures.get(random.choice(list(creatures)))))
+player_state = PlayerState(0, 0, deepcopy(creatures.get(random.choice(list(creatures)))))
 print(f'player: {player_state.player}')
 print("\nThese are your stats: ")
 display()
 
 while True:
     planet = planets[player_state.planet]
-    level = planet.levels[0]
-    print(f"This is the planet : {planet}")
+    level = planet.levels[player_state.level]
+    print(f"You are on level {level.get('name')} on planet {planet}")
     monsters = level.get('creatures')
     for idx, creature in enumerate(monsters):
         monster = deepcopy(creatures.get(creature))
         battle(idx, monster)
-    if player_state.planet + 1 < len(planets):
+        if result == "loss":
+            break
+    if player_state.player.hp<=0 and enemy.hp>0:
+        break
+    if player_state.level+1 < len(planet.levels):
+        player_state.level += 1
+    if player_state.level == len(planet.levels):
         player_state.planet += 1
-    else:
         print("hoooray")
         break
