@@ -176,7 +176,8 @@ print(f'player: {player_state.player}')
 print("\nThese are your stats: ")
 display()
 
-while True:
+game_over = True
+while game_over:
     planet = planets[player_state.planet]
     level = planet.levels[player_state.level]
     print(f"You are on level {level.get('name')} on planet {planet}")
@@ -186,9 +187,8 @@ while True:
         monster = deepcopy(creatures.get(creature))
         battle(idx, monster)
         if len(result) > 0:
+            game_over = False
             break
-    if len(result) > 0:
-        break
     if player_state.level+1 < len(planet.levels):
         player_state.level += 1
     if player_state.level == len(planet.levels):
