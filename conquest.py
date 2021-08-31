@@ -106,7 +106,7 @@ def battle(idx, enemy):
                 player_state.player.hp = 0
                 display()
                 print("\nYou have lost! Return to the home you came from.")
-                result = "loss"
+                result.append("loss")
                 return result
         # Player turn
         else:
@@ -181,12 +181,13 @@ while True:
     level = planet.levels[player_state.level]
     print(f"You are on level {level.get('name')} on planet {planet}")
     monsters = level.get('creatures')
+    result = []
     for idx, creature in enumerate(monsters):
         monster = deepcopy(creatures.get(creature))
         battle(idx, monster)
-        if result == "loss":
+        if len(result) > 0:
             break
-    if player_state.player.hp<=0 and enemy.hp>0:
+    if len(result) > 0:
         break
     if player_state.level+1 < len(planet.levels):
         player_state.level += 1
