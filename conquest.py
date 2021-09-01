@@ -1,6 +1,7 @@
 import random
 import json
 import items
+import pickle
 import abilities as moves
 from copy import deepcopy
 from planets import Planet
@@ -37,18 +38,18 @@ def enemy_attack(enemy, player, Inventory):
     else:
         display()
 
-def battle_attack(player, enemy, Inventory):
-    enumeration(player.abilities)
+def battle_attack(player_monster, enemy, Inventory):
+    enumeration(player_monster.player.abilities)
     while True:
         option = input('\nEnter the attack you want: ')
         try:
             index = int(option) - 1
-            if index in range(len(player.abilities)):
-                attack = player.abilities[index]
+            if index in range(len(player_monster.player.abilities)):
+                attack = player_monster.player.abilities[index]
                 print(f'\nYou attack the {enemy.name} with {attack}!')
                 if rand_bool():
                     print(f'\nYour attack hit the {enemy.name}!')
-                    abilities_map[attack](player, enemy)
+                    abilities_map[attack](player_monster, enemy)
                     if enemy.hp < 0:
                         enemy.hp = 0
                     else:
@@ -64,7 +65,7 @@ def battle_attack(player, enemy, Inventory):
             else:
                 print('\nYour input was not a valid attack')
 
-def battle_run(player, enemy, Inventory):
+def battle_run(player_monster, enemy, Inventory):
     if rand_bool():
         print("\nYou ran away from your duty you cooward!")
         return 'break'
@@ -72,7 +73,7 @@ def battle_run(player, enemy, Inventory):
         print("\nYou failed to run away you cooward!")
         return 'continue'
 
-def battle_items(player, enemy, Inventory):
+def battle_items(player_monster, enemy, Inventory):
     enumeration(Inventory)
     while True:
         option = input('Enter the item you want to use: ')
@@ -80,7 +81,7 @@ def battle_items(player, enemy, Inventory):
             index = int(option) - 1
             if index in range(len(Inventory)):
                 item = Inventory.pop(enumeration.item_name)
-                item(player, enemy)
+                item(player_monster, enemy)
                 print('You have healed yourself!')
                 display()
             elif len(Inventory) == 0:
@@ -92,6 +93,12 @@ def battle_items(player, enemy, Inventory):
                 return 'back'
             else:
                 print('\nYour input was not an item in your Inventory')
+
+# TODO BATTLE SAVE FUNCTION
+def battle_save(player_state, enemy, inventory):
+    with open('saves.py', 'wb') as save_file:
+        pickle.dump(player_state, save_file)
+    return 'continue'
 
 def battle(idx, enemy):
     print(f"\nYou are fighting a {enemy.name}!")
@@ -112,14 +119,14 @@ def battle(idx, enemy):
         else:
             while True: # Loop for the player's turn
                 while True:  # Checking what the player wants to do 
-                    choice = input("\nIt's time to act!. Either attack, choose an item, or run away like a cooward. Type either \'attack\', \'items\', or \'run\'. "
+                    choice = input("\nIt's time to act!. Either attack, choose an item, or run away like a cooward. Type either \'attack\', \'items\', \'run\', or \'save\'. "
                                    "\nYou will have to retype your input if you misspell it: ")
                     # Check if the input is spelled correctly
                     if choice in BATTLE_MENU:
                         break
                     # Re-prompts if it isn't spelled correctly
-                    print("\nYour input did not read as \"attack\", \"items\", \"run\".")
-                action = BATTLE_MENU[choice](player_state.player, enemy, Inventory)
+                    print("\nYour input did not read as \"attack\", \"items\", \"run\", or \"save\".")
+                action = BATTLE_MENU[choice](player_state, enemy, Inventory)
                 if action != 'back':
                     break
             if action == 'break':
@@ -139,10 +146,12 @@ def battle(idx, enemy):
             break
 
 class PlayerState:
-    def __init__(self, planet, level, player):
+    def __init__(self, planet, level, player, inventory, player_hp=None):
         self.planet = planet 
         self.level = level
         self.player = player
+        self.inventory = inventory
+        self.player_hp = player_hp
 
 def load_creatures():
     with open('creatures.json', 'r') as f:
@@ -164,14 +173,14 @@ def load_planets():
 
 Inventory = {'small_recover': items.small_recover}
 abilities_map = {"push": moves.push, "hard_punch": moves.hard_punch, "wiggle": moves.wiggle, "fire_attack": moves.fire_attack, "nibble": moves.nibble, "crush": moves.crush, "spear_attack": moves.spear_attack, "sting": moves.sting}
-BATTLE_MENU = {'attack': battle_attack, 'run': battle_run, 'items': battle_items}
+BATTLE_MENU = {'attack': battle_attack, 'run': battle_run, 'items': battle_items, 'save': battle_save}
 
 ### Start of the game
 print("Welcome to Conquest!", "\nYour goal is to conquer every planet and establish peace.")
 creatures = load_creatures()
 planets = load_planets()
 
-player_state = PlayerState(0, 0, deepcopy(creatures.get(random.choice(list(creatures)))))
+player_state = PlayerState(0, 0, deepcopy(creatures.get(random.choice(list(creatures)))), Inventory)
 print(f'player: {player_state.player}')
 print("\nThese are your stats: ")
 display()
@@ -188,7 +197,6 @@ while game_over:
         battle(idx, monster)
         if len(result) > 0:
             game_over = False
-            break
     if player_state.level+1 < len(planet.levels):
         player_state.level += 1
     if player_state.level == len(planet.levels):
